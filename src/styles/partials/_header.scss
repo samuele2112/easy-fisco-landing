@@ -1,0 +1,29 @@
+@import "../variables.scss";
+
+.header {
+    padding-top: 8rem;
+    padding-bottom: 9rem;
+    background-color: $primaryBackground;
+    text-align: center;
+
+    .h1-large{
+        margin-bottom: 1.25rem;
+
+        span {
+            color: $secondaryColor;
+        }
+    }
+
+    .p-large {
+        margin-bottom: 2.75rem;
+    }
+
+    .btn-solid-lg{
+        display: block;
+        margin-bottom: 1.75rem;
+    }
+
+    .text-container {
+        margin-bottom: 5rem;
+    }
+}
