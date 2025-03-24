@@ -80,7 +80,8 @@ const ContactPage: NextPage = () => {
                                 src="/images/images.jpg"
                                 width={400}
                                 height={500}
-                                layout="responsive"
+                                layout="intrinsic"
+                                quality={90}
                                 alt="alternative"
                                 priority
                             />

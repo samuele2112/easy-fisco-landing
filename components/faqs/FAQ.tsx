@@ -1,16 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Question } from "../../types";
 
-type FAQProps = {
-    items: Question[];
-}
+const FAQ: React.FC = () => {
+    const [items, setItems] = useState<Question[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const [currentID, setCurrentId] = useState<string | null>(null);
 
-const FAQ: React.FC<FAQProps> = ({ items }) => {
-    const [currentID, setCurrentId] = useState<String>(items[0].id);
+    useEffect(() => {
+        const fetchFAQ = async () => {
+            try {
+                const res = await fetch("/api/faq");
+                if (!res.ok) {
+                    throw new Error("Errore nel recupero delle FAQ");
+                }
+                const data: Question[] = await res.json();
+                setItems(data);
+            } catch (err) {
+                if (err instanceof Error) {
+                    setError(err.message);
+                } else {
+                    setError("Si è verificato un errore sconosciuto");
+                }
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    function handlerClick(id: String) {
-        setCurrentId(currentID === id ? "" : id); // se la domanda selezionata è già espansa, la chiude
+        fetchFAQ();
+    }, []);
+
+    function handleClick(id: string) {
+        setCurrentId(currentID === id ? "" : id);
     }
+
+    if (loading) return <p>Caricamento in corso...</p>;
+    if (error) return <p>Errore: {error}</p>;
 
     return (
         <div className="question">
@@ -23,23 +48,22 @@ const FAQ: React.FC<FAQProps> = ({ items }) => {
                 <div className="row">
                     <div className="col-lg-12">
                         <div id="my-accordion" className="accordion">
-                            {items.map((item: Question) => (
+                            {items.map((item) => (
                                 <div className="accordion-item" key={item.id.toString()}>
                                     <h2 className="accordion-header">
                                         <button
                                             className="accordion-button"
                                             type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target={`#${item.id}`}
-                                            onClick={() => handlerClick(item.id)}
-                                            aria-expanded={currentID === item.id ? "true" : "false"}
+                                            onClick={() => handleClick(item.id.toString())}
+                                            aria-expanded={currentID === item.id.toString() ? "true" : "false"}
                                         >
                                             {item.title}
+                                            
                                         </button>
                                     </h2>
                                     <div
                                         id={`${item.id}`}
-                                        className={`accordion-collapse collapse ${currentID === item.id ? "show" : ""}`}
+                                        className={`accordion-collapse collapse ${currentID === item.id.toString() ? "show" : ""}`}
                                         data-bs-parent="#my-accordion"
                                     >
                                         <div className="accordion-body">
@@ -54,6 +78,6 @@ const FAQ: React.FC<FAQProps> = ({ items }) => {
             </div>
         </div>
     );
-}
+};
 
 export default FAQ;

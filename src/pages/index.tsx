@@ -26,15 +26,15 @@ const Home: NextPage<HomeProps> = ({features, pricing, faq}) => {
 
       <AppHeader />
 
-      <Features items={features}/>
+      <Features />
 
       <Details />
 
       <Invitation />
 
-      <Pricing items={pricing} />
+      <Pricing  />
 
-      <FAQ items={faq}/>
+      <FAQ />
     </Layout>
   )
 }

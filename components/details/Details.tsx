@@ -1,11 +1,26 @@
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
-const Details: React.FC = () => {
-    return (
+import Head from "next/head";
+import Layout from "../../layouts/Layout";
 
-        <>
-            <div className="basic-1">
-                <div className="div container">
-                    <div className="div row-align-items-center">
+const Details: React.FC = () => {
+    const router = useRouter();
+
+    useEffect(() => {
+        if (router.asPath.includes("#details")) {
+            document.getElementById("details")?.scrollIntoView({ behavior: "smooth" });
+        }
+    }, [router.asPath]);
+
+    return (
+        <Layout>
+            <Head>
+                <title>EasyFisco - Dettagli</title>
+            </Head>
+            <div id="details" className="basic-1">
+                <div className="container">
+                    <div className="row align-items-center">
                         <div className="col-lg-6 col-xl-5">
                             <div className="text-container">
                                 <h2>Consulente Fiscale</h2>
@@ -28,9 +43,10 @@ const Details: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="div basic-2">
-                <div className="div container">
-                    <div className="div row-align-items-center">
+
+            <div className="basic-2">
+                <div className="container">
+                    <div className="row align-items-center">
                         <div className="col-lg-6 col-xl-7">
                             <div className="image-container">
                                 <Image
@@ -66,9 +82,8 @@ const Details: React.FC = () => {
                     </div>
                 </div>
             </div>
+        </Layout>
+    );
+};
 
-        </>
-    )
-
-}
 export default Details;

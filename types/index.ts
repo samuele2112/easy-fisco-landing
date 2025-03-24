@@ -1,24 +1,24 @@
 export type Feature ={
 
-    id: string;
-    name: String;
-    icon: String;
-    iconColor: String;
-    description: String;
+    id: number;
+    nome: string;
+    icon: string;
+    iconColor: string;
+    description: string;
 
 }
 
 export type Price={
-    id: String;
-    name: String;
-    features: String[];
-    value: String;
+    id: number;
+    nome: string;
+    description: string;
+    value: string;
 }
 
 export type Question={
-    id: String;
-    title: String;
-    answer: String;
+    id: string;
+    title: string;
+    answer: string;
 }
 
 export type ContactForm={

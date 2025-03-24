@@ -46,7 +46,9 @@ $basicBgColor: #f9f8f8;
 	}
 
 	.image-container {
-		margin-bottom: 5rem;
+		max-width: 100%;
+		height: auto;
+		object-fit: cover;
 	}
 
 	.list-unstyled {
